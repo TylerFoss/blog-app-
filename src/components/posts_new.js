@@ -11,15 +11,22 @@ class PostsNew extends Component {
           type="text"
           {...field.input} //field.input is responsible for handling event handlers
         />
+        {field.meta.error}
       </div>
     );
   }
 
-// field is similar to an input
+  onSubmit(values){
+    console.log(values);
+  }
+
+// Field is similar to an input
   render(){
+    const {handleSubmit} = this.props;
+
     return(
       <div>
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           label="Title"
           // the name property specifies the specific state this field will produce
@@ -38,7 +45,9 @@ class PostsNew extends Component {
           component={this.renderField}
         />
       </form>
+      <button type="submit" className="btn btn-primary">Submit</button>
       </div>
+
     );
   }
 }
@@ -55,7 +64,7 @@ function validate(values){
     errors.categories="Enter a category";
   }
   if(!values.content){
-    errors.title="Enter some content";
+    errors.content="Enter some content";
   }
 
 
