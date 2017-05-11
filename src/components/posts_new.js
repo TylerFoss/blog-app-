@@ -16,7 +16,7 @@ class PostsNew extends Component {
     );
   }
 
-  onSubmit(values){
+  formSubmit = (values) => {
     console.log(values);
   }
 
@@ -26,7 +26,7 @@ class PostsNew extends Component {
 
     return(
       <div>
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+      <form onSubmit={handleSubmit(this.formSubmit)}>
         <Field
           label="Title"
           // the name property specifies the specific state this field will produce
@@ -44,8 +44,8 @@ class PostsNew extends Component {
           name="content"
           component={this.renderField}
         />
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
-      <button type="submit" className="btn btn-primary">Submit</button>
       </div>
 
     );
