@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Field, reduxForm} from "redux-form";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {createPost} from "../actions/index";
 class PostsNew extends Component {
   renderField(field){ //the field argument is responsible for making sure
     const {meta: {touched, error}} = field;
@@ -21,7 +23,9 @@ class PostsNew extends Component {
   }
 
   formSubmit = (values) => {
-    console.log(values);
+    this.props.createPost(values, () => {
+      this.props.history.push("/"); //this will push back to the home page
+    });
   }
 
 // Field is similar to an input
@@ -82,4 +86,6 @@ export default reduxForm({
   validate, // validate : validate
   // this allows our component to contact the form reducer in the store
   form: "PostsNewForm"
-})(PostsNew);
+})(
+  connect(null,{createPost})(PostsNew)
+);
